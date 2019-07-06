@@ -17,9 +17,7 @@ class ProductController extends Controller
    public function index(){
       // return Product::all();
        return ProductCollection::collection(Product::paginate(6));
-
    }
-
    public function update(Request $request, Product $product){
        // return $request->all();
        $product->description = $request->descripton;
@@ -49,13 +47,13 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-       $product->discount = $request->discount;
-$product->slug = $request->slug;
-       $product->save();
-       return response([
-           'data' => new ProductResource($product)
-       ], Response::HTTP_CREATED);
-   }
+        $product->discount = $request->discount;
+        $product->slug = $request->slug;
+        $product->save();
+           return response([
+               'data' => new ProductResource($product)
+           ], Response::HTTP_CREATED);
+    }
    public function destroy(Product $product){
        $product->delete();
        return response(
