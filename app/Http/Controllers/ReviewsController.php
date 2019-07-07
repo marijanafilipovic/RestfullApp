@@ -24,7 +24,7 @@ class ReviewsController extends Controller
         $product->review()->save($review);
         return response([
             'data' => new ReviewResource($review)
-        ], Response::HTTP_CREATED 
+        ], Response::HTTP_CREATED
         );
         /*   $review = new Review();
            $review->customer = $request->customer;
