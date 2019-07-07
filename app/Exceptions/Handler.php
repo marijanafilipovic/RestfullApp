@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Exceptions;
-
+use Illuminate\Http\Response;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -50,15 +50,15 @@ class Handler extends ExceptionHandler
     {
        if($request->expectsJson()){
            if($exception instanceof ModelNotFoundException){
-               return response()->json([
+           return response()->json([
                    'errors' => 'Product Model Not found'
-               ], 204);
+               ], Response::HTTP_NO_CONTENT);
            }
        }
        if($exception instanceof NotFoundHttpException){
            return response()->json([
                'errors' => 'Request does not exists'
-           ], 404);
+           ], Response::HTTP_NOT_FOUND);
        }
        // dd($exception);
         return parent::render($request, $exception);
